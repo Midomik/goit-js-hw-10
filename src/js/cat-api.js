@@ -17,7 +17,7 @@ export function fetchBreeds(catBase) {
 export function fetchCatByBreed(listBreeds) {
     
     return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${listBreeds.value}`).then(item => {
-        if (item.ok){
+        if (item.status===200){
             return item.json();
 
         }
