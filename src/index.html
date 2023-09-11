@@ -4,12 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homework 10</title>
+    <link rel="stylesheet" href="./css/style.css">
   </head>
   <body>
-    <select class="breed-select"></select>
-    <p class="loader">Loading data, please wait...</p>
-    <p class="error">Oops! Something went wrong! Try reloading the page!</p>
-    <div class="cat-info"></div>
+    
+    <select class="breed-select unvisible"></select>
+    <p class="loader visible">Loading data, please wait...</p>
+    <p class="error unvisible">Oops! Something went wrong! Try reloading the page!</p>
+    <div class="cat-info visible-flex">
+      <div class="cat-photo"></div>
+      <div class="cat-descr"></div>
+    </div>
 
     <script type="module" src="index.js" type="module"></script>
   </body>

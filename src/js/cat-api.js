@@ -19,6 +19,7 @@ export function fetchCatByBreed(listBreeds) {
     return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${listBreeds.value}`).then(item => {
         if (item.status=200){
             return item.json();
+
         }
         throw new Error(item.statusText)
     });
