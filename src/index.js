@@ -4,6 +4,7 @@ import { fetchCatByBreed } from "./js/cat-api";
 import SlimSelect from 'slim-select'
 
 
+
 const catBase = axios.defaults.headers.common["x-api-key"] = "live_hPRucQ71EGzUuWlMZ5ZXEAV5shGTafIlK8DuYl3HSUpyAlvKjtLwmUyrq8bNzP8a";
 
 
@@ -24,18 +25,43 @@ function renderOption(arr,container){
 
     // listBreeds.classList.replace("unvisible","visible");
     // msLoad.classList.replace("visible","unvisible");
-   
-    
-
-    
-    console.log(listBreeds.length);
+  
 }
 
- function renderCatInfo (){
-    
 
+
+fetchBreeds(catBase)
+    .then(res=>{
+        renderOption(res, listBreeds);
+        console.log(res)
+        listBreeds.classList.replace("unvisible","visible-flex");
+        new SlimSelect({
+            select: '#cat-select',
+            settings: {
+                showSearch: false,
+                
+            }
+          })
+        // msLoad.classList.replace("visible","unvisible");
+        })
+    .catch((err)=>{
+        listBreeds.classList.replace("visible-flex","unvisible");
+        msError.classList.replace("unvisible","visible");
+        msLoad.classList.replace("visible","unvisible");
+        console.log(err)
+        })
+    .finally(()=>{
+        msLoad.classList.replace("visible","unvisible");
+        
+        });
+
+
+
+
+ function renderCatInfo (){
     fetchCatByBreed(listBreeds)
         .then(item => {
+            listBreeds.classList.replace("visible-flex","unvisible");
             catField.classList.replace("visible-flex","unvisible");
             msLoad.classList.replace("unvisible","visible");
             fetchBreeds(catBase)
@@ -47,21 +73,24 @@ function renderOption(arr,container){
                     <p class="cat-temp">${catInfo.temperament}</p>`
                     catFieldPhoto.innerHTML = markupPhoto;
                     catFieldDesc.innerHTML = markupInfo;
-                    console.log("1")})
-                .catch((err)=>{
-                    listBreeds.classList.replace("visible","unvisible");
-                    msError.classList.replace("unvisible","visible");
-                     console.log(err)})
-                .finally(()=>{
-                    setTimeout(()=>{
-                    console.log("2");
-                    catField.classList.replace("unvisible","visible-flex");
+                    
+                    
                     msLoad.classList.replace("visible","unvisible");
-                    },1000)
+                    catField.classList.replace("unvisible","visible-flex");
+                    msError.classList.replace("visible","unvisible");
+                    })
+                .catch((err)=>{
+                    msError.classList.replace("unvisible","visible");
+                    msLoad.classList.replace("visible","unvisible");
+                    console.log(err);
+                    })
+                .finally(()=>{
+                    listBreeds.classList.replace("unvisible","visible-flex");
+
+                    
                 })
             })
         .catch((err)=>{
-            listBreeds.classList.replace("visible","unvisible");
             msError.classList.replace("unvisible","visible")
             console.log(err)})
     
@@ -71,22 +100,7 @@ function renderOption(arr,container){
     
  }
 
-fetchBreeds(catBase)
-    .then(res=>{
-        renderOption(res, listBreeds);
-        console.log(res)
-        listBreeds.classList.replace("unvisible","visible");
-        // msLoad.classList.replace("visible","unvisible");
-        })
-    .catch((err)=>{
-        listBreeds.classList.replace("visible","unvisible");
-        msError.classList.replace("unvisible","visible");
-        msLoad.classList.replace("visible","unvisible");
-        console.log(err)
-        })
-    .finally(()=>{
-        msLoad.classList.replace("visible","unvisible");
-        });
+
     
  
 
